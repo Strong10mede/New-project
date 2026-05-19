@@ -6,10 +6,10 @@ function getGitHubUsername() {
     process.env.GITHUB_USERNAME || process.env.NEXT_PUBLIC_GITHUB_USERNAME;
 
   if (configuredUsername) {
-    return configuredUsername;
+    return configuredUsername.trim();
   }
 
-  return resumeData.github.split("/").filter(Boolean).at(-1);
+  return resumeData.github.split("/").filter(Boolean).at(-1)?.trim();
 }
 
 export async function GET() {
