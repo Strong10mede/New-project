@@ -85,6 +85,10 @@ function DetailList({ lines }) {
 function PeripheralNode({ node, selectedNode, onSelect }) {
   const content = nodeContent[node.id];
   const isSelected = selectedNode === node.id;
+  const selectedPosition =
+    node.id === "education"
+      ? "left-1/2 bottom-3 -translate-x-1/2 sm:bottom-4"
+      : node.position;
 
   return (
     <button
@@ -96,11 +100,11 @@ function PeripheralNode({ node, selectedNode, onSelect }) {
           onSelect(node.id);
         }
       }}
-      className={`absolute z-20 flex min-h-24 w-32 flex-col justify-center rounded-sm border-2 border-amber-400/80 bg-slate-900/90 p-3 text-left font-terminal text-emerald-50 shadow-[0_0_24px_rgba(251,191,36,0.22)] transition-all duration-300 hover:-translate-y-1 hover:border-amber-200 hover:shadow-[0_0_34px_rgba(251,191,36,0.45)] sm:w-36 ${
-        node.position
+      className={`absolute z-20 flex min-h-min h-auto w-32 flex-col justify-center rounded-sm border-2 border-amber-400/80 bg-slate-900/90 p-3 text-left font-terminal text-emerald-50 shadow-[0_0_24px_rgba(251,191,36,0.22)] transition-all duration-300 hover:border-amber-200 hover:shadow-[0_0_34px_rgba(251,191,36,0.45)] sm:w-36 ${
+        isSelected ? selectedPosition : node.position
       } ${
         isSelected
-          ? "z-40 min-h-52 w-[min(18rem,calc(100vw-2rem))] border-amber-200 bg-slate-950 shadow-[0_0_46px_rgba(251,191,36,0.55)] sm:w-72"
+          ? "z-50 max-h-32 w-[min(18rem,calc(100vw-2rem))] justify-start overflow-y-auto border-amber-200 bg-slate-950 shadow-[0_0_46px_rgba(251,191,36,0.55)] sm:max-h-36 sm:w-72"
           : ""
       }`}
       aria-expanded={isSelected}
@@ -164,7 +168,7 @@ export default function PCBView() {
 
       <div
         onClick={(event) => event.stopPropagation()}
-        className="absolute left-1/2 top-1/2 z-20 flex h-[min(19rem,44vw)] min-h-56 w-[min(25rem,76vw)] -translate-x-1/2 -translate-y-1/2 flex-col justify-center rounded-sm border-4 border-amber-500 bg-neutral-900/95 p-5 text-center shadow-[0_0_55px_rgba(245,158,11,0.45)]"
+        className="absolute left-1/2 top-[43%] z-20 flex h-auto max-h-[68%] min-h-min w-[min(31rem,78vw)] -translate-x-1/2 -translate-y-1/2 flex-col justify-center overflow-hidden rounded-sm border-4 border-amber-500 bg-neutral-900/95 p-5 text-center shadow-[0_0_55px_rgba(245,158,11,0.45)] sm:top-[42%] sm:p-6"
       >
         <span className="mx-auto mb-3 h-2 w-20 rounded-full bg-amber-400/80" />
         <h1 className="text-xl font-black text-amber-200 sm:text-3xl">
@@ -173,13 +177,13 @@ export default function PCBView() {
         <p className="mt-1 text-sm font-semibold text-emerald-200">
           {resumeData.title}
         </p>
-        <p className="mt-4 text-xs leading-5 text-emerald-50/85 sm:text-sm">
+        <p className="mt-4 text-xs leading-5 text-emerald-50/85 sm:text-sm sm:leading-6">
           {resumeData.summary}
         </p>
-        <div className="mt-4 flex flex-wrap justify-center gap-1.5">
+        <div className="mt-6 flex flex-wrap justify-center gap-2">
           {skills.map((skill) => (
             <span
-              className="rounded-sm border border-amber-400/40 bg-amber-400/10 px-2 py-1 text-[10px] uppercase text-amber-100"
+              className="rounded-sm border border-amber-400/40 bg-amber-400/10 px-2.5 py-1.5 text-[10px] uppercase leading-none text-amber-100"
               key={skill}
             >
               {skill}
