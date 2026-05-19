@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  background: transparent;
+  color: #d5fff1;
+  overflow: hidden;
+}
+
+body {
+  font-family: "Fira Code", "JetBrains Mono", "Cascadia Code", "Courier New",
+    monospace;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.portfolio-root ::selection {
+  background: var(--theme-selection);
+}
+
+.terminal-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--theme-accent) transparent;
+}
+
+.terminal-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.terminal-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--theme-accent);
+  border-radius: 999px;
+}
+
+@media (max-width: 640px) {
+  .terminal-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes terminal-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  18% {
+    transform: translateX(-7px);
+  }
+
+  36% {
+    transform: translateX(6px);
+  }
+
+  54% {
+    transform: translateX(-4px);
+  }
+
+  72% {
+    transform: translateX(3px);
+  }
+}
+
+.terminal-alert {
+  animation: terminal-shake 0.42s ease-in-out 2;
+}
+
+.terminal-alert span,
+.terminal-alert pre,
+.terminal-alert input {
+  color: #ff405d !important;
+}
+
+.terminal-alert input {
+  caret-color: #ff405d;
+}
+
+@keyframes theme-boot-overlay {
+  0% {
+    opacity: 0;
+  }
+
+  14%,
+  78% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes theme-boot-symbol {
+  0% {
+    opacity: 0;
+    filter: blur(14px);
+    transform: scale(0.55) rotate(-8deg);
+  }
+
+  18% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1) rotate(0);
+  }
+
+  75% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1.06) rotate(0);
+  }
+
+  100% {
+    opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.32) rotate(8deg);
+  }
+}
+
+.theme-boot-overlay {
+  animation: theme-boot-overlay 1.5s ease-in-out both;
+}
+
+.theme-boot-symbol {
+  animation: theme-boot-symbol 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  text-shadow: 0 0 28px currentColor;
+}
+
+@keyframes header-avatar-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes header-avatar-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-1px) scale(1.04);
+  }
+}
+
+.header-avatar-shell {
+  animation: header-avatar-float 3.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px var(--theme-shadow));
+}
+
+.header-avatar-shell > span:first-child {
+  animation: header-avatar-orbit 5s linear infinite;
+}
+
+.header-avatar-image {
+  box-shadow: 0 0 18px var(--theme-shadow);
+}
+
+@keyframes classified-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes classified-panel-in {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(16px) scale(0.94);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+.classified-modal {
+  animation: classified-fade-in 180ms ease-out both;
+}
+
+.classified-panel {
+  animation: classified-panel-in 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
