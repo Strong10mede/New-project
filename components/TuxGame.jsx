@@ -130,7 +130,7 @@ export default function TuxGame({ onExit }) {
         context.fillText(`High score: ${game.highScore}`, width / 2, height / 2 + 4);
         context.fillStyle = theme.colors.muted;
         context.font = '13px "Fira Code", "Courier New", monospace';
-        context.fillText("Press [ENTER] to restart, or [ESC] to exit to terminal", width / 2, height / 2 + 46);
+        context.fillText("Tap to restart, [ENTER] restarts, [ESC] exits", width / 2, height / 2 + 46);
         context.textAlign = "left";
       }
     },
@@ -205,6 +205,15 @@ export default function TuxGame({ onExit }) {
     game.player.vy = JUMP_VELOCITY;
     game.player.grounded = false;
   }, []);
+
+  const handlePrimaryAction = useCallback(() => {
+    if (gameRef.current?.gameOver) {
+      resetGame();
+      return;
+    }
+
+    jump();
+  }, [jump, resetGame]);
 
   const loop = useCallback(
     (timestamp) => {
@@ -320,13 +329,44 @@ export default function TuxGame({ onExit }) {
   return (
     <div
       ref={wrapperRef}
-      className="relative h-full w-full overflow-hidden bg-black"
+      className="relative h-full w-full touch-none overflow-hidden bg-black"
+      onPointerDown={(event) => {
+        if (event.pointerType !== "mouse") {
+          event.preventDefault();
+        }
+
+        handlePrimaryAction();
+      }}
       role="application"
       aria-label="Tux platformer game"
     >
       <canvas ref={canvasRef} className="h-full w-full" />
-      <div className="pointer-events-none absolute bottom-3 left-3 rounded border border-white/10 bg-black/40 px-3 py-2 font-terminal text-xs text-[color:var(--theme-muted)] backdrop-blur">
+      <div className="pointer-events-none absolute bottom-3 left-3 hidden rounded border border-white/10 bg-black/40 px-3 py-2 font-terminal text-xs text-[color:var(--theme-muted)] backdrop-blur sm:block">
         Space / Up: jump | ESC: terminal
+      </div>
+      <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 sm:hidden">
+        <button
+          type="button"
+          className="min-h-11 rounded border border-white/10 bg-black/55 px-3 py-2 font-terminal text-xs font-semibold uppercase text-[color:var(--theme-muted)] backdrop-blur"
+          onPointerDown={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            onExit?.();
+          }}
+        >
+          Exit
+        </button>
+        <button
+          type="button"
+          className="min-h-12 min-w-28 rounded border border-[color:var(--theme-border)] bg-black/65 px-5 py-2 font-terminal text-sm font-bold uppercase text-[color:var(--theme-text)] shadow-[0_0_24px_var(--theme-shadow)] backdrop-blur"
+          onPointerDown={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            handlePrimaryAction();
+          }}
+        >
+          Jump
+        </button>
       </div>
     </div>
   );

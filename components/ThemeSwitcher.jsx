@@ -36,7 +36,7 @@ export default function ThemeSwitcher({ className = "" }) {
       <button
         type="button"
         onClick={() => setIsOpen((current) => !current)}
-        className="flex h-8 min-w-[5.7rem] items-center justify-between gap-2 rounded-md border border-white/10 bg-black/45 px-2 text-left text-xs font-semibold uppercase tracking-normal text-[color:var(--theme-text)] outline-none backdrop-blur-xl transition hover:border-[color:var(--theme-accent)] hover:text-[color:var(--theme-accent)] focus:ring-2 focus:ring-[color:var(--theme-accent)] sm:h-9 sm:min-w-[6.4rem] sm:px-3"
+        className="flex h-8 min-w-0 items-center justify-between gap-1.5 rounded-md border border-white/10 bg-black/45 px-2 text-left text-[11px] font-semibold uppercase tracking-normal text-[color:var(--theme-text)] outline-none backdrop-blur-xl transition hover:border-[color:var(--theme-accent)] hover:text-[color:var(--theme-accent)] focus:ring-2 focus:ring-[color:var(--theme-accent)] sm:h-9 sm:min-w-[6.4rem] sm:gap-2 sm:px-3 sm:text-xs"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         aria-label="Switch Linux terminal theme"
@@ -47,7 +47,7 @@ export default function ThemeSwitcher({ className = "" }) {
             color={theme.colors.accent}
             id={selectedTheme.id}
           />
-          {selectedTheme.shortLabel}
+          <span className="hidden min-[390px]:inline">{selectedTheme.shortLabel}</span>
         </span>
         <span className="text-[color:var(--theme-accent)]" aria-hidden="true">
           v

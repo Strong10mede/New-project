@@ -12,7 +12,7 @@ function UsageBar({ label, value }) {
     <div className="flex items-center gap-1.5">
       <span className="text-[color:var(--theme-muted)]">{label}</span>
       <div
-        className="flex h-3 w-16 items-center gap-0.5"
+        className="flex h-3 w-12 items-center gap-0.5 sm:w-16"
         aria-label={`${label} usage ${value}%`}
       >
         {bars.map((bar) => (
@@ -26,7 +26,7 @@ function UsageBar({ label, value }) {
           />
         ))}
       </div>
-      <span className="w-8 tabular-nums">{value}%</span>
+      <span className="hidden w-8 tabular-nums min-[390px]:inline">{value}%</span>
     </div>
   );
 }
@@ -38,7 +38,7 @@ function ViewToggle({ activeView, onViewChange }) {
     <button
       type="button"
       onClick={() => onViewChange(isHardware ? "terminal" : "hardware")}
-      className="inline-flex h-9 items-center gap-2 rounded-md border border-white/10 bg-white/5 px-2.5 text-[color:var(--theme-text)] transition hover:border-[color:var(--theme-accent)] focus:outline-none focus:ring-2 focus:ring-[color:var(--theme-accent)]"
+      className="inline-flex h-8 items-center gap-2 rounded-md border border-white/10 bg-white/5 px-2 text-[color:var(--theme-text)] transition hover:border-[color:var(--theme-accent)] focus:outline-none focus:ring-2 focus:ring-[color:var(--theme-accent)] sm:h-9 sm:px-2.5"
       role="switch"
       aria-checked={isHardware}
       aria-label="Switch between terminal mode and hardware mode"
@@ -90,34 +90,38 @@ export default function TopNavbar({ activeView = "terminal", onViewChange = () =
   }, []);
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-black/30 px-3 py-2 font-terminal text-xs text-[color:var(--theme-text)] shadow-[0_16px_48px_rgba(0,0,0,0.28)] backdrop-blur-md sm:px-6">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
-        <div className="flex min-w-0 items-center gap-3 overflow-hidden">
+    <nav className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-black/30 px-2 py-2 font-terminal text-[11px] text-[color:var(--theme-text)] shadow-[0_16px_48px_rgba(0,0,0,0.28)] backdrop-blur-md sm:px-6 sm:text-xs">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2">
+        <div className="flex min-w-0 items-center gap-2 overflow-hidden sm:gap-3">
           <span className="hidden rounded border border-white/10 bg-white/5 px-2 py-1 text-[color:var(--theme-accent)] sm:inline">
             {clock}
           </span>
-          <div className="flex min-w-0 items-center gap-3 overflow-x-auto whitespace-nowrap">
+          <div className="flex min-w-0 items-center gap-2 overflow-hidden whitespace-nowrap sm:gap-3">
             <UsageBar label="CPU" value={usage.cpu} />
             <UsageBar label="RAM" value={usage.ram} />
           </div>
         </div>
 
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
           <ViewToggle activeView={activeView} onViewChange={onViewChange} />
           <a
-            className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1.5 text-[color:var(--theme-text)] transition hover:border-[color:var(--theme-accent)] hover:text-[color:var(--theme-accent)]"
+            className="rounded-md border border-white/10 bg-white/5 px-2 py-1.5 text-[color:var(--theme-text)] transition hover:border-[color:var(--theme-accent)] hover:text-[color:var(--theme-accent)] sm:px-2.5"
             href="/Mayur_Resume.pdf"
             download
+            aria-label="Download CV"
           >
-            Download CV
+            <span className="sm:hidden">CV</span>
+            <span className="hidden sm:inline">Download CV</span>
           </a>
           <a
-            className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1.5 text-[color:var(--theme-text)] transition hover:border-[color:var(--theme-accent)] hover:text-[color:var(--theme-accent)]"
+            className="rounded-md border border-white/10 bg-white/5 px-2 py-1.5 text-[color:var(--theme-text)] transition hover:border-[color:var(--theme-accent)] hover:text-[color:var(--theme-accent)] sm:px-2.5"
             href={resumeData.github}
             rel="noreferrer"
             target="_blank"
+            aria-label="Open GitHub profile"
           >
-            GitHub
+            <span className="sm:hidden">GH</span>
+            <span className="hidden sm:inline">GitHub</span>
           </a>
           <ThemeSwitcher />
         </div>

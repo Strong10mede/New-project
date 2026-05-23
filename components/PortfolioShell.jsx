@@ -41,7 +41,7 @@ function PortfolioExperience() {
       <MatrixBackground />
       <TopNavbar activeView={activeView} onViewChange={setActiveView} />
 
-      <div className="relative z-10 flex h-full min-h-0 flex-col px-3 pb-20 pt-16 sm:px-6 sm:pb-8 sm:pt-20">
+      <div className="relative z-10 flex h-full min-h-0 flex-col px-2 pb-16 pt-16 sm:px-6 sm:pb-8 sm:pt-20">
         <div className="flex min-h-0 flex-1 items-center justify-center">
           <DesktopWindow
             title={
